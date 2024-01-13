@@ -1,0 +1,1 @@
+Recuerda que este es solo un ejemplo básico. En una aplicación más grande, podrías tener una estructura más compleja y modularizar aún más tu código. También ten en cuenta que el código que realiza operaciones de archivo como este es asíncrono en Node.js, por lo que generalmente se maneja con devoluciones de llamada (callbacks) o promesas

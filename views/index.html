@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/styles.css"> 
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <title>opreciones crud</title>
+</head>
+<body>
+    <h1>Bienvenidos al crud de los libros</h1>
+
+    <form id="formularioLibro">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+      
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+      
+        <label for="añoPublicacion">Año de Publicación:</label>
+        <input type="number" id="añoPublicacion" name="añoPublicacion" required>
+      
+        <button type="button" onclick="crearLibro()">Crear Libro</button>
+      </form>
+      <form id="formularioActualizarLibro">
+        <label for="idLibro">ID del Libro a Actualizar:</label>
+        <input type="text" id="idLibro" name="idLibro" required>
+      
+        <label for="nuevoTitulo">Nuevo Título:</label>
+        <input type="text" id="nuevoTitulo" name="nuevoTitulo" required>
+      
+        <label for="nuevoAutor">Nuevo Autor:</label>
+        <input type="text" id="nuevoAutor" name="nuevoAutor" required>
+      
+        <label for="nuevoAñoPublicacion">Nuevo Año de Publicación:</label>
+        <input type="number" id="nuevoAñoPublicacion" name="nuevoAñoPublicacion" required>
+      
+        <button type="button" onclick="actualizarLibro()">Actualizar Libro</button>
+      </form>
+      <form id="formularioEliminarLibro">
+        <label for="idLibroEliminar">ID del Libro a Eliminar:</label>
+        <input type="text" id="idLibroEliminar" name="idLibroEliminar" required>
+      
+        <button type="button" onclick="eliminarLibro()">Eliminar Libro</button>
+      </form>
+
+    <script>
+    
+    function crearLibro() {
+    const titulo = document.getElementById('titulo').value;
+    const autor = document.getElementById('autor').value;
+    const añoPublicacion = document.getElementById('añoPublicacion').value;
+
+    fetch('/api/libros', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ titulo, autor, añoPublicacion }),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+     }
+    
+
+     function actualizarLibro() {
+    const idLibro = document.getElementById('idLibro').value;
+    const nuevoTitulo = document.getElementById('nuevoTitulo').value;
+    const nuevoAutor = document.getElementById('nuevoAutor').value;
+    const nuevoAñoPublicacion = document.getElementById('nuevoAñoPublicacion').value;
+
+    fetch(`/api/libros/${idLibro}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ titulo: nuevoTitulo, autor: nuevoAutor, añoPublicacion: nuevoAñoPublicacion }),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+     }
+
+
+     function eliminarLibro() {
+    const idLibroEliminar = document.getElementById('idLibroEliminar').value;
+
+    fetch(`/api/libros/${idLibroEliminar}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  }
+
+    
+    </script>
+    <script src="../public/js/script.js"></script>
+</body>
+</html>

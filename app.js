@@ -1,14 +1,14 @@
-
 const express = require('express')
-const mongoose = require('mongoose')
 const librosRouter = require('./routes/libros')
-const path = require('path');
+const path = require('path')
+require('dotenv').config();
 const port = 4000
 require('./db')
 const app = express()
 
 
- app.use(express.json())
+app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 app.use(express.static('public'))
